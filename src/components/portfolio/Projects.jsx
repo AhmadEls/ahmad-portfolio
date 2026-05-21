@@ -4,21 +4,58 @@ import ProjectCard from './ProjectCard';
 const PROJECTS = [
   {
     id: 'SYS_01',
-    type: 'FLAGSHIP',
+    type: 'AI_PRODUCT',
     year: '2026',
-    title: 'Ziyarah — AI Trip Planner',
+    title: 'Ziyarah — AI Travel Planner',
     description:
-      'A full-stack AI travel platform for Lebanon that generates personalized multi-day itineraries using Google Gemini, real location data, secure authentication, and a polished product-grade interface.',
-    stack: ['React', 'Node.js', 'Gemini API', 'Firebase', 'Google OAuth'],
-    status: 'LIVE IN PRODUCTION',
+      'AI-powered travel planning platform for Lebanon with Google authentication, Gemini-generated itineraries, Google Places integration, trip history, and saved user journeys.',
+    stack: ['React', 'Vite', 'Firebase', 'Firestore', 'Gemini API', 'Google Places'],
+    status: 'LIVE DEMO',
     live: true,
     href: 'https://ai-senior-web-planner-vdlo.vercel.app/',
-    featured: true,
-    snippet: `const plan = await gemini.generate({
-  prompt: buildTripPrompt(city, days),
-  format: 'structured_json'
+    snippet: `const trip = await gemini.generateContent({
+  destination,
+  days,
+  budget,
+  travelers
 });
-return parsePlan(plan.response);`,
+
+await saveTrip(userId, trip);`,
+  },
+  {
+    id: 'SYS_02',
+    type: 'FULL_STACK',
+    year: '2026',
+    title: 'Bugless — Engineering Issue Tracker',
+    description:
+      'Full-stack issue tracking dashboard built for realistic debugging workflows. Supports issue creation, status transitions, investigation logs, root-cause analysis, resolution notes, activity timelines, dashboard metrics, and filtering.',
+    stack: ['React', 'Tailwind CSS', 'Node.js', 'Express', 'MongoDB', 'REST API'],
+    status: 'LOCAL DEMO / SOURCE AVAILABLE',
+    live: false,
+    href: 'https://github.com/AhmadEls/bugless',
+    snippet: `await issue.updateStatus('IN_PROGRESS');
+
+activityLog.push({
+  type: 'STATUS_CHANGE',
+  message: 'Issue moved to investigation'
+});`,
+  },
+  {
+    id: 'SYS_03',
+    type: 'IN_PROGRESS',
+    year: '2026',
+    title: 'VerifyHub Lite — Compliance Dashboard',
+    description:
+      'KYC-inspired verification review dashboard concept for managing identity sessions, reviewer decisions, risk scores, verification status, and audit-style activity logs.',
+    stack: ['React', 'Node.js', 'PostgreSQL', 'Prisma', 'Auth', 'REST API'],
+    status: 'IN PROGRESS',
+    live: false,
+    href: '',
+    snippet: `const riskScore = calculateRisk(checks);
+
+auditLog.create({
+  action: 'SESSION_REVIEWED'
+});`,
   },
 ];
 
@@ -35,7 +72,7 @@ export default function Projects() {
           className="flex items-center gap-4 mb-6"
         >
           <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-neural-teal">
-            [02] PRODUCT_HIGHLIGHT
+            [02] SELECTED_SYSTEMS
           </div>
           <div className="h-px flex-1 bg-gradient-to-r from-neural-teal/40 to-transparent" />
         </motion.div>
@@ -48,21 +85,19 @@ export default function Projects() {
           className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16"
         >
           <h2 className="font-display font-bold text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[0.95]">
-            Flagship
+            Selected
             <br />
-            <span className="text-outline">System.</span>
+            <span className="text-outline">Work.</span>
           </h2>
 
-          <p className="text-core-white/50 max-w-sm leading-relaxed text-sm lg:text-base">
-            A product-first showcase focused on one complete, shipped system built end-to-end.
+          <p className="text-core-white/50 max-w-md leading-relaxed text-sm lg:text-base">
+            A focused collection of full-stack, AI, and dashboard systems built around real product workflows.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-4 lg:gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5">
           {PROJECTS.map((p, i) => (
-            <div key={p.id}>
-              <ProjectCard project={p} index={i} featured />
-            </div>
+            <ProjectCard key={p.id} project={p} index={i} featured={i === 0} />
           ))}
         </div>
       </div>
